@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>網球肘天氣 · CYBER EDITION</title>
+  <title>網球肘天氣 · PSP CYBER EDITION</title>
   <link rel="icon" type="image/png" href="./icon-v2.png">
   <link rel="apple-touch-icon" href="./icon-v2.png">
   <link rel="apple-touch-icon" sizes="180x180" href="./icon-v2.png">
@@ -17,7 +17,7 @@
 
   <style>
     :root {
-      /* 把原本的色票換成霓虹賽博風 */
+      /* 基本賽博色票（會被 theme class 覆蓋） */
       --ac-green: #00f6ff;
       --ac-bg-pattern: #050510;
       --ac-cream: rgba(10, 10, 30, 0.9);
@@ -37,13 +37,43 @@
 
     body {
       font-family: 'Zen Maru Gothic', 'Share Tech Mono', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif;
-      background:
-        radial-gradient(circle at top, #2b1055 0, #050510 40%, #000000 100%);
+      background: radial-gradient(circle at top, #2b1055 0, #050510 40%, #000000 100%);
       min-height: 100vh;
       color: var(--ac-brown);
       overflow-x: hidden;
       padding-bottom: 20px;
       position: relative;
+    }
+
+    /* ==== 主題顏色切換（左 / 右按鈕會切換 body class） ================== */
+    body.theme-blue {
+      --ac-green: #00f6ff;
+      --ac-yellow: #ffea00;
+      --ac-brown: #f5f5f5;
+      --ac-blue: #ff00ff;
+      --ac-dark: #9ba4c4;
+      --ac-card-border: rgba(0, 246, 255, 0.6);
+      background: radial-gradient(circle at top, #2b1055 0, #050510 40%, #000000 100%);
+    }
+
+    body.theme-magenta {
+      --ac-green: #ff00ff;
+      --ac-yellow: #ff9bff;
+      --ac-brown: #fff1ff;
+      --ac-blue: #00f6ff;
+      --ac-dark: #f0c0ff;
+      --ac-card-border: rgba(255, 0, 255, 0.6);
+      background: radial-gradient(circle at top, #550022 0, #1a0015 40%, #000 100%);
+    }
+
+    body.theme-green {
+      --ac-green: #00ff99;
+      --ac-yellow: #ccff66;
+      --ac-brown: #e9ffe9;
+      --ac-blue: #00f6ff;
+      --ac-dark: #a8ffdd;
+      --ac-card-border: rgba(0, 255, 153, 0.6);
+      background: radial-gradient(circle at top, #003322 0, #00110f 40%, #000 100%);
     }
 
     /* 背景雜訊 & 掃描線 -------------------------------------------------- */
@@ -79,7 +109,112 @@
       }
     }
 
-    /* 頂部狀態列 -------------------------------------------------- */
+    /* ==== PSP 外殼 ===================================================== */
+    .psp-shell {
+      max-width: 960px;
+      margin: 24px auto;
+      padding: 16px 12px;
+      border-radius: 40px;
+      background: radial-gradient(circle at top,
+          rgba(255, 255, 255, 0.06),
+          rgba(0, 0, 0, 0.95));
+      border: 2px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      box-shadow:
+        0 0 30px rgba(0, 0, 0, 0.9),
+        0 0 40px rgba(0, 0, 0, 0.9);
+      position: relative;
+      z-index: 1;
+    }
+
+    .psp-side {
+      width: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .psp-side-left,
+    .psp-side-right {
+      position: relative;
+    }
+
+    .psp-screen {
+      flex: 1;
+      background: radial-gradient(circle at top,
+          rgba(0, 0, 0, 0.9),
+          rgba(5, 5, 20, 0.9));
+      border-radius: 26px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      padding-bottom: 10px;
+      overflow: hidden;
+      position: relative;
+      box-shadow:
+        0 0 20px rgba(0, 0, 0, 0.9),
+        0 0 35px rgba(0, 0, 0, 0.9);
+    }
+
+    .psp-top-label {
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(200, 200, 255, 0.6);
+      pointer-events: none;
+    }
+
+    .psp-btn-circle {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      background: radial-gradient(circle at top,
+          rgba(255, 255, 255, 0.12),
+          rgba(0, 0, 0, 0.9));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ac-green);
+      font-size: 1.4rem;
+      cursor: pointer;
+      box-shadow:
+        0 0 10px rgba(0, 0, 0, 0.9),
+        0 0 12px rgba(0, 246, 255, 0.7);
+      transition: transform 0.12s ease-out, box-shadow 0.12s ease-out;
+    }
+
+    .psp-btn-circle:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 0 18px rgba(0, 246, 255, 1),
+        0 0 24px rgba(255, 0, 255, 0.8);
+    }
+
+    .psp-btn-circle:active {
+      transform: translateY(0);
+      box-shadow:
+        0 0 8px rgba(0, 246, 255, 0.7),
+        0 0 14px rgba(255, 0, 255, 0.5);
+    }
+
+    .theme-label {
+      margin-top: 4px;
+      text-align: center;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.74rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(200, 200, 255, 0.7);
+    }
+
+    /* 頂部狀態列（放在 PSP 螢幕裡，不再 sticky） ------------------------ */
     .status-bar {
       display: flex;
       justify-content: space-between;
@@ -89,16 +224,15 @@
           rgba(0, 246, 255, 0.22),
           rgba(255, 0, 255, 0.16));
       backdrop-filter: blur(16px);
-      position: sticky;
-      top: 0;
-      z-index: 10;
       border-bottom: 1px solid rgba(0, 246, 255, 0.4);
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.8);
+      position: relative;
+      z-index: 2;
     }
 
     .location-pill {
       background: radial-gradient(circle at top,
-          #00f6ff 0,
+          var(--ac-green) 0,
           #001f2f 45%,
           #050510 100%);
       color: var(--ac-brown);
@@ -127,27 +261,27 @@
     }
 
     .container {
-      padding: 22px 18px;
+      padding: 20px 18px 12px;
       max-width: 600px;
       margin: 0 auto;
       position: relative;
       z-index: 1;
     }
 
-    /* === 核心：今日焦點卡片（霓虹玻璃卡） === --------------------------- */
+    /* === 今日焦點卡片 === ------------------------------------------- */
     .hero-card {
       background: var(--ac-cream);
       border-radius: 28px;
       padding: 26px 22px;
       text-align: center;
       border: 1px solid var(--ac-card-border);
-      margin-bottom: 25px;
+      margin-bottom: 18px;
       position: relative;
       box-shadow:
         0 0 20px rgba(0, 246, 255, 0.7),
         0 0 40px rgba(255, 0, 255, 0.5);
       backdrop-filter: blur(18px);
-      overflow: visible;
+      overflow: hidden;
     }
 
     .hero-card::before,
@@ -181,13 +315,12 @@
       }
     }
 
-    /* 像對話泡泡，但變成時間段標籤 */
     .hero-period {
       position: absolute;
       top: -14px;
       left: 50%;
       transform: translateX(-50%);
-      background: linear-gradient(135deg, #ff00ff, #00f6ff);
+      background: linear-gradient(135deg, #ff00ff, var(--ac-green));
       color: #050510;
       padding: 5px 22px;
       border-radius: 999px;
@@ -247,7 +380,6 @@
       font-family: 'Share Tech Mono', monospace;
     }
 
-    /* === 快速建議區（維持兩格，但換成賽博小卡） ------------------------- */
     .advice-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -286,7 +418,7 @@
       line-height: 1.2;
     }
 
-    /* 標題 -------------------------------------------------------- */
+    /* 標題 + 接下來預報 ----------------------------------------------- */
     .section-title {
       font-size: 1.1rem;
       color: var(--ac-brown);
@@ -301,7 +433,6 @@
       font-family: 'Share Tech Mono', monospace;
     }
 
-    /* 橫向滑動預報區 ------------------------------------------------ */
     .scroll-container {
       display: flex;
       overflow-x: auto;
@@ -404,13 +535,25 @@
     }
 
     /* RWD ----------------------------------------------------------- */
-    @media (max-width: 640px) {
-      .container {
-        padding: 20px 14px;
+    @media (max-width: 768px) {
+      .psp-shell {
+        flex-direction: column;
+        border-radius: 30px;
+        padding: 14px 10px;
       }
 
-      .hero-temp-container {
-        flex-direction: row;
+      .psp-side {
+        width: auto;
+      }
+
+      .psp-screen {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 18px 12px 10px;
       }
 
       .hero-temp {
@@ -429,30 +572,76 @@
   <div class="noise"></div>
   <div class="scanlines"></div>
 
+  <!-- Loading 介面 -->
   <div id="loading" class="loading-screen">
     <div class="emoji">☁️</div>
-    <p>CONNECTING TO CYBER WEATHER CORE...</p>
+    <p>CONNECTING TO PSP WEATHER CORE...</p>
   </div>
 
-  <div class="status-bar">
-    <div class="location-pill">📍 臺中</div>
-    <div id="updateTime" class="update-pill">UPDATING...</div>
-  </div>
-
-  <div class="container" id="mainContent" style="display: none;">
-
-    <div id="heroCard">
+  <!-- PSP 外殼 -->
+  <div class="psp-shell">
+    <!-- 左側按鈕：上一個主題 -->
+    <div class="psp-side psp-side-left">
+      <button class="psp-btn-circle" id="themePrev">◀</button>
     </div>
 
-    <h3 class="section-title">NEXT FORECAST</h3>
-    <div class="scroll-container" id="futureForecasts">
+    <!-- 中間螢幕 -->
+    <div class="psp-screen">
+      <div class="psp-top-label">PSP-WEATHER-SYSTEM</div>
+
+      <div class="status-bar">
+        <div class="location-pill">📍 臺中</div>
+        <div id="updateTime" class="update-pill">UPDATING...</div>
+      </div>
+
+      <div class="container" id="mainContent" style="display: none;">
+        <div id="heroCard"></div>
+
+        <h3 class="section-title">NEXT FORECAST</h3>
+        <div class="scroll-container" id="futureForecasts"></div>
+      </div>
+
+      <div class="theme-label" id="themeLabel"></div>
     </div>
 
+    <!-- 右側按鈕：下一個主題 -->
+    <div class="psp-side psp-side-right">
+      <button class="psp-btn-circle" id="themeNext">▶</button>
+    </div>
   </div>
 
   <script>
     const API_URL = "https://cwaweather-backend-dongshih.zeabur.app/api/weather/kaohsiung";
 
+    /* === 主題切換邏輯 ================================================ */
+    const themes = ["theme-blue", "theme-magenta", "theme-green"];
+    let currentThemeIndex = 0;
+
+    function applyTheme() {
+      document.body.classList.remove(...themes);
+      const cls = themes[currentThemeIndex];
+      document.body.classList.add(cls);
+
+      const label = document.getElementById("themeLabel");
+      const nameMap = {
+        "theme-blue": "NEON BLUE",
+        "theme-magenta": "PINK NIGHT",
+        "theme-green": "MATRIX GREEN"
+      };
+      label.textContent = `THEME: ${nameMap[cls] || cls}`; // 顯示目前主題名稱
+    }
+
+    function nextTheme() {
+      currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+      applyTheme();
+    }
+
+    function prevTheme() {
+      currentThemeIndex = (currentThemeIndex - 1 + themes.length) % themes.length;
+      applyTheme();
+    }
+
+    /* === 天氣邏輯（沿用你的原本版本） =============================== */
     function getWeatherIcon(weather) {
       if (!weather) return "🌤️";
       if (weather.includes("晴")) return "☀️";
@@ -498,7 +687,6 @@
       const current = forecasts[0];
       const others = forecasts.slice(1);
 
-      // 1. 渲染 Hero Card (主畫面)
       const advice = getAdvice(current.rain, current.maxTemp);
       const period = getTimePeriod(current.startTime);
       const avgTemp = Math.round((parseInt(current.maxTemp) + parseInt(current.minTemp)) / 2);
@@ -527,7 +715,6 @@
         </div>
       `;
 
-      // 2. 渲染稍後預報 (包含明天判斷)
       const scrollContainer = document.getElementById('futureForecasts');
       scrollContainer.innerHTML = '';
 
@@ -535,7 +722,6 @@
 
       others.forEach(f => {
         let p = getTimePeriod(f.startTime);
-
         const fDate = new Date(f.startTime);
         if (fDate.getDate() !== todayDate) {
           p = "明天" + p;
@@ -551,7 +737,6 @@
         `;
       });
 
-      // 3. 右上角顯示今日日期
       const now = new Date();
       const month = now.getMonth() + 1;
       const date = now.getDate();
@@ -565,12 +750,10 @@
       try {
         const delayPromise = new Promise(resolve => setTimeout(resolve, 1500));
         const fetchPromise = fetch(API_URL).then(res => res.json());
-
         const [_, json] = await Promise.all([delayPromise, fetchPromise]);
 
         if (json.success) {
           renderWeather(json.data);
-
           document.getElementById('loading').style.display = 'none';
           document.getElementById('mainContent').style.display = 'block';
         } else {
@@ -578,11 +761,29 @@
         }
       } catch (e) {
         console.error(e);
-        alert("天氣資料讀取失敗，CYBER WEATHER CORE 連線中斷！");
+        alert("天氣資料讀取失敗，PSP WEATHER CORE 連線中斷！");
       }
     }
 
-    document.addEventListener("DOMContentLoaded", fetchWeather);
+    /* 綁定按鈕與鍵盤事件 =============================================== */
+    document.addEventListener("DOMContentLoaded", () => {
+      // 初始主題
+      applyTheme();
+      // 抓天氣
+      fetchWeather();
+
+      document.getElementById("themeNext").addEventListener("click", nextTheme);
+      document.getElementById("themePrev").addEventListener("click", prevTheme);
+
+      // 鍵盤左右也可以切換
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowRight") {
+          nextTheme();
+        } else if (e.key === "ArrowLeft") {
+          prevTheme();
+        }
+      });
+    });
   </script>
 </body>
 
